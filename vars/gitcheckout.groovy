@@ -1,8 +1,11 @@
 def call(String repoUrl, String branchName = 'main') {
     echo "Checking out branch: ${branchName} from ${repoUrl}"
-    checkout([
+    def scmConfig = [
         $class: 'GitSCM',
         branches: [[name: "*/${branchName}"]],
-        userRemoteConfigs: [[url: repoUrl]]
-    ])
+        userRemoteConfigs: [[
+            url: repoUrl,
+            credentialsId: credentialsId
+        ]]
+    ]
 }
